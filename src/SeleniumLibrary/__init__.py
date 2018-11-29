@@ -366,6 +366,7 @@ class SeleniumLibrary(DynamicCore):
 
     def run_keyword(self, name, args, kwargs):
         try:
+            BuiltIn().run_keyword(self.run_on_failure_keyword)
             return DynamicCore.run_keyword(self, name, args, kwargs)
         except Exception:
             self.failure_occurred()
