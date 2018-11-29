@@ -64,6 +64,8 @@ class ElementKeywords(LibraryComponent):
         Use `Element Text Should Be` if you want to match the exact text,
         not a substring.
         """
+        self._element_meta(self.find_element(locator))
+
         actual = actual_before = self.find_element(locator).text
         expected_before = expected
         if is_truthy(ignore_case):
@@ -91,6 +93,8 @@ class ElementKeywords(LibraryComponent):
 
         ``ignore_case`` argument new in SeleniumLibrary 3.1.
         """
+        self._element_meta(self.find_element(locator))
+
         actual = self.find_element(locator).text
         expected_before = expected
         if is_truthy(ignore_case):
@@ -218,6 +222,8 @@ class ElementKeywords(LibraryComponent):
         | `Assign ID to Element` | //ul[@class='example' and ./li[contains(., 'Stuff')]] | my id |
         | `Page Should Contain Element` | my id |
         """
+        self._element_meta(self.find_element(locator))
+
         self.info("Assigning temporary id '%s' to element '%s'." % (id, locator))
         element = self.find_element(locator)
         self.driver.execute_script("arguments[0].id = '%s';" % id, element)
@@ -257,6 +263,8 @@ class ElementKeywords(LibraryComponent):
 
         New in SeleniumLibrary 3.0.
         """
+        self._element_meta(self.find_element(locator))
+
         element = self.find_element(locator)
         focused = self.driver.switch_to.active_element
         # Selenium 3.6.0 with Firefox return dict wich contains the selenium WebElement
@@ -322,6 +330,8 @@ class ElementKeywords(LibraryComponent):
 
         Use `Element Should Contain` if a substring match is desired.
         """
+        self._element_meta(self.find_element(locator))
+
         self.info("Verifying element '%s' contains exact text '%s'."
                   % (locator, expected))
         text = before_text = self.find_element(locator).text
@@ -350,6 +360,8 @@ class ElementKeywords(LibraryComponent):
 
         New in SeleniumLibrary 3.1.1
         """
+        self._element_meta(self.find_element(locator))
+
         self.info("Verifying element '%s' does not contains exact text '%s'."
                   % (locator, not_expected))
         text = self.find_element(locator).text
@@ -377,6 +389,8 @@ class ElementKeywords(LibraryComponent):
         in SeleniumLibrary 3.2. The explicit ``attribute`` argument
         should be used instead.
         """
+        self._element_meta(self.find_element(locator))
+
         return self.find_element(locator).get_attribute(attribute)
 
     @keyword
@@ -391,6 +405,8 @@ class ElementKeywords(LibraryComponent):
 
         New in SeleniumLibrary 3.2.
         """
+        self._element_meta(self.find_element(locator))
+
         current_expected = self.find_element(locator).get_attribute(attribute)
         if current_expected != expected:
             if is_noney(message):
@@ -411,6 +427,8 @@ class ElementKeywords(LibraryComponent):
 
         See also `Get Vertical Position`.
         """
+        self._element_meta(self.find_element(locator))
+
         return self.find_element(locator).location['x']
 
     @keyword
@@ -425,6 +443,8 @@ class ElementKeywords(LibraryComponent):
         Example:
         | ${width} | ${height} = | `Get Element Size` | css:div#container |
         """
+        self._element_meta(self.find_element(locator))
+
         element = self.find_element(locator)
         return element.size['width'], element.size['height']
 
@@ -473,6 +493,8 @@ newDiv.parentNode.style.overflow = 'hidden';
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        self._element_meta(self.find_element(locator))
+
         return self.find_element(locator).text
 
     @keyword
@@ -482,6 +504,8 @@ newDiv.parentNode.style.overflow = 'hidden';
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        self._element_meta(self.find_element(locator))
+
         self.find_element(locator).clear()
 
     @keyword
@@ -496,6 +520,8 @@ newDiv.parentNode.style.overflow = 'hidden';
 
         See also `Get Horizontal Position`.
         """
+        self._element_meta(self.find_element(locator))
+
         return self.find_element(locator).location['y']
 
     @keyword
@@ -521,6 +547,8 @@ newDiv.parentNode.style.overflow = 'hidden';
 
         The ``modifier`` argument is new in SeleniumLibrary 3.2
         """
+        self._element_meta(self.find_element(locator))
+
         if is_falsy(modifier):
             self.info("Clicking element '%s'." % locator)
             self.find_element(locator).click()
@@ -544,6 +572,8 @@ newDiv.parentNode.style.overflow = 'hidden';
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        self._element_meta(self.find_element(locator))
+
         self.info("Clicking element '%s' at coordinates x=%s, y=%s."
                   % (locator, xoffset, yoffset))
         element = self.find_element(locator)
@@ -560,6 +590,8 @@ newDiv.parentNode.style.overflow = 'hidden';
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        self._element_meta(self.find_element(locator))
+
         self.info("Double clicking element '%s'." % locator)
         element = self.find_element(locator)
         action = ActionChains(self.driver)
@@ -574,6 +606,8 @@ newDiv.parentNode.style.overflow = 'hidden';
 
         Prior to SeleniumLibrary 3.0 this keyword was named `Focus`.
         """
+        self._element_meta(self.find_element(locator))
+
         element = self.find_element(locator)
         self.driver.execute_script("arguments[0].focus();", element)
 
@@ -591,6 +625,8 @@ newDiv.parentNode.style.overflow = 'hidden';
 
         New in SeleniumLibrary 3.2.0
         """
+        self._element_meta(self.find_element(locator))
+
         element = self.find_element(locator)
         ActionChains(self.driver).move_to_element(element).perform()
 
@@ -605,6 +641,8 @@ newDiv.parentNode.style.overflow = 'hidden';
         Example:
         | `Drag And Drop` | css:div#element | css:div.target |
         """
+        self._element_meta(self.find_element(locator))
+
         element = self.find_element(locator)
         target = self.find_element(target)
         action = ActionChains(self.driver)
@@ -623,6 +661,8 @@ newDiv.parentNode.style.overflow = 'hidden';
         Example:
         | `Drag And Drop By Offset` | myElem | 50 | -35 | # Move myElem 50px right and 35px down |
         """
+        self._element_meta(self.find_element(locator))
+
         element = self.find_element(locator)
         action = ActionChains(self.driver)
         action.drag_and_drop_by_offset(element, int(xoffset), int(yoffset))
@@ -640,6 +680,8 @@ newDiv.parentNode.style.overflow = 'hidden';
         See also the more specific keywords `Mouse Down On Image` and
         `Mouse Down On Link`.
         """
+        self._element_meta(self.find_element(locator))
+
         self.info("Simulating Mouse Down on element '%s'." % locator)
         element = self.find_element(locator)
         action = ActionChains(self.driver)
@@ -652,6 +694,8 @@ newDiv.parentNode.style.overflow = 'hidden';
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        self._element_meta(self.find_element(locator))
+
         self.info("Simulating Mouse Out on element '%s'." % locator)
         element = self.find_element(locator)
         size = element.size
@@ -668,6 +712,8 @@ newDiv.parentNode.style.overflow = 'hidden';
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        self._element_meta(self.find_element(locator))
+
         self.info("Simulating Mouse Over on element '%s'." % locator)
         element = self.find_element(locator)
         action = ActionChains(self.driver)
@@ -680,6 +726,8 @@ newDiv.parentNode.style.overflow = 'hidden';
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        self._element_meta(self.find_element(locator))
+
         self.info("Simulating Mouse Up on element '%s'." % locator)
         element = self.find_element(locator)
         ActionChains(self.driver).release(element).perform()
@@ -687,6 +735,8 @@ newDiv.parentNode.style.overflow = 'hidden';
     @keyword
     def open_context_menu(self, locator):
         """Opens context menu on element identified by ``locator``."""
+        self._element_meta(self.find_element(locator))
+
         element = self.find_element(locator)
         action = ActionChains(self.driver)
         action.context_click(element).perform()
@@ -703,6 +753,8 @@ newDiv.parentNode.style.overflow = 'hidden';
 
         Prior to SeleniumLibrary 3.0 this keyword was named `Simulate`.
         """
+        self._element_meta(self.find_element(locator))
+
         element = self.find_element(locator)
         script = """
 element = arguments[0];
@@ -749,6 +801,8 @@ return !element.dispatchEvent(evt);
         syntax. When using the default locator strategy, links are searched
         using ``id``, ``name``, ``href`` and the link text.
         """
+        self._element_meta(self.find_element(locator, tag='link'))
+
         self.info("Clicking link '%s'." % locator)
         self.find_element(locator, tag='link').click()
 
@@ -769,6 +823,8 @@ return !element.dispatchEvent(evt);
         syntax. When using the default locator strategy, links are searched
         using ``id``, ``name``, ``href`` and the link text.
         """
+        self._element_meta(self.find_element(locator, tag='link'))
+
         element = self.find_element(locator, tag='link')
         action = ActionChains(self.driver)
         action.click_and_hold(element).perform()
@@ -807,6 +863,8 @@ return !element.dispatchEvent(evt);
         syntax. When using the default locator strategy, images are searched
         using ``id``, ``name``, ``src`` and ``alt``.
         """
+        self._element_meta(self.find_element(locator, tag='image', required=False))
+
         self.info("Clicking image '%s'." % locator)
         element = self.find_element(locator, tag='image', required=False)
         if not element:
@@ -822,6 +880,8 @@ return !element.dispatchEvent(evt);
         syntax. When using the default locator strategy, images are searched
         using ``id``, ``name``, ``src`` and ``alt``.
         """
+        self._element_meta(self.find_element(locator, tag='image'))
+
         element = self.find_element(locator, tag='image')
         action = ActionChains(self.driver)
         action.click_and_hold(element).perform()
@@ -951,6 +1011,9 @@ return !element.dispatchEvent(evt);
             if found_text:
                 return True
         return False
+
+    def _element_meta(self, element):
+        self.info(element.rect)
 
     def parse_modifier(self, modifier):
         modifier = modifier.upper()
