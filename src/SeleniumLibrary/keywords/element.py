@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import json
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 
@@ -451,12 +452,12 @@ class ElementKeywords(LibraryComponent):
     @keyword
     def cover_element(self, locator):
         """Will cover element identified by ``locator`` with a blue div without breaking page layout.
-        
+
         See the `Locating elements` section for details about the locator
         syntax.
-        
+
         New in SeleniumLibrary 3.3.0
-        
+
         Example:
         |`Cover Element` | css:div#container |
         """
@@ -1013,7 +1014,8 @@ return !element.dispatchEvent(evt);
         return False
 
     def _element_meta(self, element):
-        self.info(element.rect)
+        dict1 = { "element_meta": element.rect }
+        self.info(json.dumps(dict1))
 
     def parse_modifier(self, modifier):
         modifier = modifier.upper()

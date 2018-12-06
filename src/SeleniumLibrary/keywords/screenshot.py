@@ -146,6 +146,7 @@ class ScreenshotKeywords(LibraryComponent):
     def _embed_to_log(self, path, width):
         # Image is shown on its own row and thus previous row is closed on
         # purpose. Depending on Robot's log structure is a bit risky.
+        self.info(get_link_path(path, self.log_dir))
         self.info('</td></tr><tr><td colspan="3">'
                   '<a href="{src}"><img src="{src}" width="{width}px"></a>'
                   .format(src=get_link_path(path, self.log_dir), width=width), html=True)
