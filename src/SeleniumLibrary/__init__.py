@@ -394,7 +394,7 @@ class SeleniumLibrary(DynamicCore):
         Libraries extending SeleniumLibrary can overwrite this hook
         method if they want to provide custom functionality instead.
         """
-        if self._running_on_failure_keyword or not self.run_on_failure_keyword
+        if self._running_on_failure_keyword or not self.run_on_failure_keyword:
             return
         try:
             self._running_on_failure_keyword = True
