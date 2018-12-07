@@ -394,11 +394,11 @@ class SeleniumLibrary(DynamicCore):
         Libraries extending SeleniumLibrary can overwrite this hook
         method if they want to provide custom functionality instead.
         """
-        if self._running_on_failure_keyword or not self.run_on_failure_keyword:
+        if self._running_on_failure_keyword or not self.run_on_failure_keyword
             return
         try:
             self._running_on_failure_keyword = True
-            BuiltIn().run_keyword(self.run_on_failure_keyword)
+            # BuiltIn().run_keyword(self.run_on_failure_keyword)
         except Exception as err:
             logger.warn("Keyword '%s' could not be run on failure: %s"
                         % (self.run_on_failure_keyword, err))
