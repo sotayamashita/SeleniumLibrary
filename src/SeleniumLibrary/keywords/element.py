@@ -1014,8 +1014,9 @@ return !element.dispatchEvent(evt);
         return False
 
     def _element_meta(self, element):
-        dict1 = { "element_meta": element.rect }
-        self.info(json.dumps(dict1))
+        if element:
+            dict1 = { "element_meta": element.rect }
+            self.info(json.dumps(dict1))
 
     def parse_modifier(self, modifier):
         modifier = modifier.upper()
